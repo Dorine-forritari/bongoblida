@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Bongoblida</title>
+	</head>
+	<body>
+		<h1>Er bongóblíða í Reykjavík? &#127865</h1>
+		<!-- Image by Nextvoyage, through pixabay.com.-->
+		<img src="reykjavik.jpg" alt="panorama of Reykjavik">
+
+		<p id="bongo"></p>
+		<p id="idea"></p>
+		<p id="reply"></p>
+
+		<script>
+			/*This is a list of ideas what people can do when it is not bongóblíða (not summer weather), like petting their hamster, learn to tap-dance or visit their grandparents. If they click the button a random idea from this list is shown.*/
+			var ideaList = [
+				"Lesaðu bók!",
+				"Knúsaðu hamsturinn þinn!",
+				"Spilaðu á gitar!",
+				"Bakaðu köku!",
+				"Taktu lúr!",
+				"Horfðu á Netflix!",
+				"Lærðu að tapdansa!",
+				"Skrifaðu sögu!",
+				"Hringdu í vin!",
+				"Farðu í hlýja sturtu!",
+				"Gerðu heimavinnuna þína!",
+				"Hlustaðu á uppáhaldstónlistina þína og dansaðu!",
+				"Þrífðu herbergið þitt!",
+				"Lærðu nýtt tungumál!",
+				"Prjónaðu trefil!",
+				"Farðu út samt!",
+				"Spilaðu nýjan tölvuleik!",
+				"Farðu í Ikea!",
+				"Heimsæktu afa og ömmu!",
+				"Gerðu jóga!",
+				]
+
+			function giveIdea() {
+				document.getElementById("reply").innerHTML = ideaList[Math.floor(Math.random() * 20)];
+			}
+
+			function getweather(myObj) {
+				console.log(myObj);
+
+				// The webpage always shows the current weather info for Reykjavik.
+				var weatherDetails = "<br>" + "<br>" + "Veðrið í Reykjavík" + "<br>" + "hitastig í celsíus: " + myObj.main.temp + "<br>" + "hlutfall skýjað: " + myObj.clouds.all + "<br>" + "lýsing: " + myObj.weather[0].main;
+
+				// If these conditions are met the webpage will state that it is bongóblíða.
+				if (myObj.main.temp >= 15 && myObj.weather[0].main != "Rain" && myObj.clouds.all <= 50) {
+					document.getElementById("bongo").innerHTML = "Já, njóttu þess!" + weatherDetails;
+
+				// Else it will state that it is not bongóblíða, and a button will appear that people can press to get ideas for activities to do on a day with bad weather.
+				} else {
+					document.getElementById("bongo").innerHTML = "Nei því miður ekki. " + weatherDetails;
+					document.getElementById("idea").innerHTML = '<button onclick="giveIdea()">Hvað á ég þá að gera? &#128549</button>';
+					}
+			}
+		</script>
+
+		<!--This is the url of the API, containing the name of the city, the unit of measurement (metrics = celsius) and the API key. I took out the API key, you can create your own account on openwearthermap.org.-->
+		<script src="http://api.openweathermap.org/data/2.5/weather?q=reykjavik&units=metric&callback=getweather&appid=xxx"></script> 
+	
+	</body>
+</html>
+
